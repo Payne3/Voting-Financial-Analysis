@@ -7,9 +7,6 @@ import csv
 
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
-Total = []
-
-
 with open(csvpath) as csvfile:
     Date = []
     Months = 0
@@ -29,7 +26,7 @@ with open(csvpath) as csvfile:
     csv_header = next(csvreader)
 
     # Read each row of data after the header
-    #def find():
+    
     
     for row in csvreader:
         
@@ -54,12 +51,13 @@ with open(csvpath) as csvfile:
         
 
     # create dicitionary to find date of largest profit and largest loss date. 
+    # the date should correlate to the largest changes in the Average list
 
     dictionary = dict(zip(Date, Total))
     highest_profit = max(dictionary, key= dictionary.get) 
     largest_loss = min(dictionary, key= dictionary.get)
 
-    #remove first change between zero and first value
+    #remove first change between zero and first value. not a great way to do it but it worked for me.
 
     del Average[0]
 
@@ -69,7 +67,7 @@ with open(csvpath) as csvfile:
     average_change = sum(Average)/ len(Average)
 
     
-    #find max change and min largest loss in Average list. which is a list of the changes calculated
+    #find max change and min change in Average list. which is a list of the changes calculated
 
     high = max(Average)
     low = min(Average)
@@ -78,7 +76,22 @@ with open(csvpath) as csvfile:
     print("Financial Analysis")
     print("------------------------------")
     print(f"Total Months: {Months}")
-    print(f"Total Profit/Loss: : {Total}")
-    print(f'Average Change: {average_change}')
-    print(f"Largest loss: {largest_loss} {low}")  
-    print(f"Highest Profit: {highest_profit} {high}")
+    print(f"Total Profit/Loss: : ${Total}")
+    print(f'Average Change: ${average_change}')
+    print(f"Largest loss: {largest_loss} ${low}")  
+    print(f"Highest Profit: {highest_profit} ${high}")
+
+output_path = os.path.join("budget_results.txt")
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output_path, 'w', newline='') as text_file:
+
+    # Initialize csv.writer
+    writer = csv.writer(text_file, delimiter=',')
+    
+    writer.writerow(["Financial Analysis"])
+    writer.writerow(["------------------------------"])
+    writer.writerow([f"Total Months: {Months}"])
+    writer.writerow([f"Total Profit/Loss: : ${Total}"])
+    writer.writerow([f'Average Change: ${average_change}'])
+    writer.writerow([f"Largest loss: {largest_loss} ${low}"])
+    writer.writerow([f"Highest Profit: {highest_profit} ${high}"])
