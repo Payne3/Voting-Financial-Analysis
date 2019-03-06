@@ -69,3 +69,4 @@ with open(output_path, 'w', newline='') as text_file:
     writer.writerow([f"O'Tooley : {(round(O_percentage,4))} %  ({len(otooley_votes)})"])
     writer.writerow([f'Li  : {(round(L_percentage,4))} %  ({len(Li_votes)})'])
     writer.writerow([f'Correy  : {(round(C_percentage,4))} %  ({len(correy_votes)})'])
+    writer.writerow(['Winner: Khan'])
